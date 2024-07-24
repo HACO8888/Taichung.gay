@@ -1,31 +1,21 @@
 "use client"
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 
 export default function Home() {
-  const videoRef = useRef<any>(null);
+  const videoRef = useRef(null);
+  const [isPlay, setIsPlay] = useState(false);
 
-  useEffect(() => {
-    const playVideo = () => {
-      if (videoRef.current) {
-        videoRef.current.play().catch((error: any) => {
-          console.log('Autoplay was prevented:', error);
-        });
-      }
-    };
-    playVideo();
-
-    // Play video on user interaction as a fallback
-    document.addEventListener('click', playVideo);
-
-    return () => {
-      document.removeEventListener('click', playVideo);
-    };
-  }, []);
-
-  return (
-    <video id="video" className="block w-[100dvw] h-[100dvh]" ref={videoRef} loop playsInline>
-        <source src="/videos.mp4" type="video/mp4" />
+  return isPlay ?
+    <video className="block w-[100dvw] h-[100dvh]"
+      playsInline
+      autoPlay
+      ref={videoRef}
+    >
+      <source src="/videos.webm" type="video/mp4" />
     </video>
-  );
+    :
+    <div className='w-[100dvw] h-[100dvh] flex'>
+      <button className='mx-auto my-auto bg-white py-3.5 px-7 rounded-full text-black font-extrabold text-3xl' onClick={() => setIsPlay(true)}>點擊查看內容</button>
+    </div>
 }
