@@ -10,6 +10,7 @@ export default function Home() {
     <video className="block w-[100dvw] h-[100dvh]"
       playsInline
       autoPlay
+      loop
       ref={videoRef}
     >
       <source src="/videos.webm" type="video/mp4" />
